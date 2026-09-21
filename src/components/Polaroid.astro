@@ -16,6 +16,8 @@ interface Props {
   sizes?: string;
   hero?: boolean;
   eager?: boolean;
+  /** Keep the photo's own shape instead of cropping it square. */
+  natural?: boolean;
 }
 const {
   image,
@@ -30,16 +32,18 @@ const {
   sizes = '(max-width: 720px) 45vw, 360px',
   hero = false,
   eager = false,
+  natural = false,
 } = Astro.props;
 const photo = findPhoto(image);
 const isPlaceholder = caption.startsWith('[');
+const photoStyle = natural && photo ? `aspect-ratio: ${photo.width} / ${photo.height}` : undefined;
 ---
 <figure
   class:list={['polaroid', className]}
   style={`--tilt: ${tilt}deg; transform: rotate(var(--tilt)); ${style}`}
   data-hero={hero ? 'polaroid' : undefined}
 >
-  <div class:list={['polaroid__photo', !photo && fill]} data-develop>
+  <div class:list={['polaroid__photo', !photo && fill]} style={photoStyle} data-develop>
     {photo ? (
       <Image
         src={photo}

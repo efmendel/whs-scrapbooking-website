@@ -1,6 +1,5 @@
 ---
 import club from '../data/club.json';
-import TornLabel from './TornLabel.astro';
 import Polaroid from './Polaroid.astro';
 import Stamp from './Stamp.astro';
 import Sticker from './Sticker.astro';
@@ -9,8 +8,6 @@ const [p1, p2, p3] = club.heroPhotos;
 ---
 <section class="hero wrap" id="top">
   <div class="hero__copy">
-    <TornLabel color="butter" font="hand" tilt={-3} hero>welcome to the</TornLabel>
-
     <h1 class="hero__title display">
       <span class="visually-hidden">{club.clubName}: </span>
       <span class="hero__line" data-hero="line">Cut it.</span>
@@ -78,10 +75,12 @@ const [p1, p2, p3] = club.heroPhotos;
   .hero {
     position: relative;
     display: grid;
-    grid-template-columns: minmax(0, 620px) minmax(0, 1fr);
-    gap: 40px;
-    align-items: start;
-    padding-top: 64px;
+    /* copy and collage sit as one centred pair, so the gaps on the left, middle and right balance out */
+    grid-template-columns: minmax(0, 600px) minmax(0, 560px);
+    justify-content: center;
+    column-gap: clamp(40px, 7vw, 120px);
+    align-items: center;
+    padding-top: 56px;
     padding-bottom: 80px;
     min-height: 740px;
   }
@@ -133,18 +132,17 @@ const [p1, p2, p3] = club.heroPhotos;
   }
   .hero__code .lbl { font-size: 11px; }
   .hero__code-value {
-    font-family: var(--font-label);
+    font-family: var(--font-body);
+    font-weight: 800;
     font-size: 22px;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
   }
 
   /* collage: every piece is positioned in % of a 560 x 660 board */
   .hero__collage {
     position: relative;
-    justify-self: end;
     width: min(560px, 100%);
     aspect-ratio: 560 / 660;
-    margin-top: -24px;
   }
   .hero__collage :global(.hc) { position: absolute; }
   .hero__collage :global(.hc--1) { left: 2%; top: 3%; width: 44.6%; }

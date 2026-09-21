@@ -265,20 +265,19 @@ h1, h2, h3, p { margin: 0; }
   border-right: 2px dashed var(--cream);
 }
 .ticket__stub {
-  position: relative;
   width: 50px;
+  /* "admit" / punch hole / "one", with the hole dead centre like a real punched stub */
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 7px;
 }
-.ticket__stub .lbl { writing-mode: vertical-rl; font-size: 12px; }
+.ticket__stub .lbl { writing-mode: vertical-rl; font-size: 10.5px; letter-spacing: 0.08em; line-height: 1; }
 .ticket__punch {
-  position: absolute;
-  top: 10px;
-  left: 50%;
+  flex-shrink: 0;
   width: 14px;
   height: 14px;
-  margin-left: -7px;
   border-radius: 50%;
   background: var(--cream);
   box-shadow: inset 0 1px 2px rgb(60 40 35 / 0.3);

@@ -33,7 +33,7 @@ Square-ish photos look best. Astro resizes and compresses them automatically, an
 
 ### Meet the team: `src/data/club.json` → `team`
 
-Each officer has a `name`, `role`, `grade`, `image` and `bio`. Put officer photos in `src/assets/team/` and set `"image"` to the file name. Entries with `"featured": true` (the co-presidents) get their own row of bigger cards at the top. Add or remove entries and the page adjusts. The advisor card uses `advisor.name`, `advisor.email` and `advisor.image`.
+Each officer has a `name`, `role`, `grade`, `image` and `bio`. Put officer photos in `src/assets/team/` and set `"image"` to the file name. Entries with `"featured": true` (the co-presidents) get their own row of bigger cards at the top. Add or remove entries and the page adjusts. The advisor card uses `advisor.name`, `advisor.email` and `advisor.image`. Leave `email` as `""` to hide it (the card then just points people to the room), and without an `image` the card shows the advisor's initials.
 
 You can do all of this in GitHub's website editor. Once the site is hosted (below), each save redeploys it in about a minute.
 

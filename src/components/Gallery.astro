@@ -4,12 +4,12 @@ import TornLabel from './TornLabel.astro';
 import Polaroid from './Polaroid.astro';
 
 const looks = [
-  { fill: 'fill-stripes-pink', tilt: -2, tape: 'dots', tapeTilt: 3, speed: 0.6 },
-  { fill: 'fill-dots-butter', tilt: 1.5, tape: 'gingham', tapeTilt: -4, speed: 1.2 },
-  { fill: 'fill-gingham-apricot', tilt: -1, tape: 'dots', tapeTilt: 2, speed: 0.8 },
-  { fill: 'fill-stripes-butter', tilt: 1, tape: 'stripes', tapeTilt: -2, speed: 1.1 },
-  { fill: 'fill-dots-pink', tilt: -1.5, tape: 'dots', tapeTilt: 5, speed: 0.7 },
-  { fill: 'fill-stripes-apricot', tilt: 2, tape: 'gingham', tapeTilt: -3, speed: 1.3 },
+  { fill: 'fill-stripes-pink', tilt: -1.5, tape: 'dots', tapeTilt: 3 },
+  { fill: 'fill-dots-butter', tilt: 1, tape: 'gingham', tapeTilt: -4 },
+  { fill: 'fill-gingham-apricot', tilt: -1, tape: 'dots', tapeTilt: 2 },
+  { fill: 'fill-stripes-butter', tilt: 1, tape: 'stripes', tapeTilt: -2 },
+  { fill: 'fill-dots-pink', tilt: -1.5, tape: 'dots', tapeTilt: 5 },
+  { fill: 'fill-stripes-apricot', tilt: 1.5, tape: 'gingham', tapeTilt: -3 },
 ] as const;
 ---
 <section id="pages" class="gallery wrap">
@@ -22,7 +22,7 @@ const looks = [
     {club.gallery.map((item, i) => {
       const look = looks[i % looks.length];
       return (
-        <div class="gallery__item" data-parallax={look.speed}>
+        <div class="gallery__item">
           <Polaroid
             image={item.image}
             caption={item.caption}
@@ -31,7 +31,7 @@ const looks = [
             tilt={look.tilt}
             tape={look.tape}
             tapeStyle={`top: -13px; left: 50%; margin-left: -50px; width: 100px; rotate: ${look.tapeTilt}deg;`}
-            sizes="(max-width: 720px) 45vw, (max-width: 1100px) 30vw, 380px"
+            sizes="(max-width: 720px) 45vw, 360px"
           />
         </div>
       );
@@ -41,32 +41,44 @@ const looks = [
 
 <style>
   .gallery {
-    padding-top: 110px;
-    padding-bottom: 120px;
+    padding-top: 96px;
+    padding-bottom: 104px;
     display: flex;
     flex-direction: column;
-    gap: 56px;
+    gap: 40px;
   }
   .gallery__head {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 22px;
+    gap: 18px;
   }
+  /*
+    A plain 3 x 2 grid of same-size polaroids. The grid's width is capped by the
+    window height so both rows (plus the heading) fit on one screen.
+  */
   .gallery__grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 56px 48px;
+    gap: 40px 36px;
+    width: 100%;
+    max-width: max(640px, calc((100vh - 420px) * 2 + 72px));
+    margin-inline: auto;
   }
-  .gallery__item :global(.polaroid) { padding: 16px 16px 66px; }
-  .gallery__item :global(.polaroid__caption) { font-size: 30px; bottom: 16px; }
+  .gallery__item { min-width: 0; }
+  .gallery__item :global(.polaroid) { padding: 12px 12px 52px; }
+  .gallery__item :global(.polaroid__photo) { aspect-ratio: 4 / 3; }
+  /* top-anchored so page titles (like "Making waves") stay in frame */
+  .gallery__item :global(.polaroid__photo img) { object-position: 50% 0%; }
+  .gallery__item :global(.polaroid__caption) { font-size: 24px; bottom: 14px; }
 
   @media (max-width: 720px) {
     .gallery { padding-top: 56px; padding-bottom: 64px; gap: 28px; }
     .gallery__head { gap: 16px; }
-    .gallery__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 16px; }
-    .gallery__item :global(.polaroid) { padding: 8px 8px 38px; }
-    .gallery__item :global(.polaroid__caption) { font-size: 19px; bottom: 9px; }
+    .gallery__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 16px; max-width: none; }
+    .gallery__item :global(.polaroid) { padding: 8px 8px 10px; }
+    /* captions sit in the flow on phones so two-line ones grow the card instead of covering the photo */
+    .gallery__item :global(.polaroid__caption) { position: static; margin-top: 8px; font-size: 18px; line-height: 1.05; text-wrap: balance; }
     .gallery__item :global(.polaroid__placeholder) { display: none; }
   }
 </style>

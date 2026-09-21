@@ -37,8 +37,8 @@ function heroEntrance() {
 
   const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-  tl.fromTo(label, { autoAlpha: 0, clipPath: 'inset(0 100% 0 0)' }, { autoAlpha: 1, clipPath: 'inset(0 0% 0 0)', duration: 0.5 })
-    .fromTo(lines, { autoAlpha: 0, y: 40, rotation: -4 }, { autoAlpha: 1, y: 0, rotation: 0, duration: 0.55, stagger: 0.12, ease: 'back.out(1.8)' }, '-=0.2');
+  if (label.length) tl.fromTo(label, { autoAlpha: 0, clipPath: 'inset(0 100% 0 0)' }, { autoAlpha: 1, clipPath: 'inset(0 0% 0 0)', duration: 0.5 });
+  tl.fromTo(lines, { autoAlpha: 0, y: 40, rotation: -4 }, { autoAlpha: 1, y: 0, rotation: 0, duration: 0.55, stagger: 0.12, ease: 'back.out(1.8)' }, '-=0.2');
 
   if (squiggle) {
     const len = squiggle.getTotalLength();
@@ -148,9 +148,9 @@ function parallaxGallery() {
     const speed = Number(el.dataset.parallax) || 1;
     gsap.fromTo(
       el,
-      { y: 40 * speed },
+      { y: 18 * speed },
       {
-        y: -40 * speed,
+        y: -18 * speed,
         ease: 'none',
         scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true },
       },

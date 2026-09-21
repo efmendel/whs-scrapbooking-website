@@ -3,22 +3,22 @@
   "schoolName": "Westfield High School",
   "shortSchool": "Westfield High",
   "classroom": {
-    "code": "[CODE]",
+    "code": "3ts6l75n",
     "link": "https://classroom.google.com/"
   },
   "meetings": {
     "days": "[DAYS]",
     "time": "[TIME]",
-    "room": "[#]",
+    "room": "224",
     "nextDate": "[Date]"
   },
-  "suppliesNote": "[What supplies the club provides.]",
+  "suppliesNote": "We provide the tools (scissors, paper, markers, tape, glue sticks, stickers and more). You bring the memories.",
   "advisor": {
-    "name": "[Advisor name]",
-    "email": "[contact email]",
+    "name": "Timothy Stumbers",
+    "email": "",
     "image": ""
   },
-  "established": "[year]",
+  "established": "April 2026",
   "heroPhotos": [
     {
       "image": "",
@@ -35,28 +35,28 @@
   ],
   "gallery": [
     {
-      "image": "",
-      "caption": "[project name]"
+      "image": "kailani-scrapbook.jpg",
+      "caption": "Kailani's scrapbook"
     },
     {
-      "image": "",
-      "caption": "[project name]"
+      "image": "patagonia.jpg",
+      "caption": "Patagonia"
     },
     {
-      "image": "",
-      "caption": "[project name]"
+      "image": "making-waves.jpg",
+      "caption": "Making waves"
     },
     {
-      "image": "",
-      "caption": "[project name]"
+      "image": "cottage-spread.jpg",
+      "caption": "Summer daydreams"
     },
     {
-      "image": "",
-      "caption": "[project name]"
+      "image": "penn-visit.jpg",
+      "caption": "Penn visit"
     },
     {
-      "image": "",
-      "caption": "[project name]"
+      "image": "june-summer.jpg",
+      "caption": "June"
     }
   ],
   "team": [
@@ -100,7 +100,7 @@
     {
       "name": "Norah",
       "role": "Activity Facilitator",
-      "grade": "[Grade]",
+      "grade": "11th grade",
       "image": "norah-af.jpg",
       "bio": "Hi, my name is Norah. I love to dance - I do all different styles, but ballet is my favorite. I also assist teach dance classes on the weekends. When I’m not dancing, I like to take barre classes or run. I play the violin in the WHS chamber orchestra. I like to draw, paint, or do any kind of art or craft when I have free time!"
     },

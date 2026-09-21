@@ -23,7 +23,7 @@ const year = new Date().getFullYear();
         <div class="footer__col">
           <span class="lbl">Contact</span>
           <span>Advisor: {club.advisor.name}</span>
-          <span>{club.advisor.email}</span>
+          {club.advisor.email && <span>{club.advisor.email}</span>}
           <span>Room {club.meetings.room}</span>
         </div>
       </div>

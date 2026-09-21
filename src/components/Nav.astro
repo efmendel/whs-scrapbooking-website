@@ -72,6 +72,7 @@ const links = [
     gap: 12px;
     font-size: 26px;
     line-height: 1;
+    white-space: nowrap;
   }
   .nav__brand:hover { color: var(--cocoa); }
   .nav__brand :global(.nav__logo) { position: static; }
@@ -83,7 +84,7 @@ const links = [
     font-weight: 400;
     font-size: 19px;
   }
-  .nav__links a { font-weight: 400; letter-spacing: 0.01em; }
+  .nav__links a { font-weight: 400; letter-spacing: 0.01em; white-space: nowrap; }
   .nav__links a[aria-current='page'],
   .nav__sheet a[aria-current='page'] {
     text-decoration: underline wavy var(--rose) 2px;
@@ -92,7 +93,8 @@ const links = [
   .nav__toggle,
   .nav__sheet { display: none; }
 
-  @media (max-width: 1100px) {
+  /* the full link row needs ~1080px of room; below that it becomes a menu button */
+  @media (max-width: 1320px) {
     .nav { height: 68px; }
     .nav__brand { font-size: 18px; gap: 8px; }
     .nav__brand :global(.nav__logo) { width: 32px; height: 32px; }

@@ -31,7 +31,9 @@ const officers = team.filter((m) => !m.featured);
 const perRow = officers.length <= 5 ? Math.max(officers.length, 1) : Math.ceil(officers.length / Math.ceil(officers.length / 5));
 
 const advisorPhoto = findPhoto(club.advisor.image);
-const advisorEmail = club.advisor.email.startsWith('[') ? undefined : club.advisor.email;
+// Leave advisor.email empty ("") to hide it; the card then just points people to the room.
+const advisorEmail = club.advisor.email && !club.advisor.email.startsWith('[') ? club.advisor.email : undefined;
+const advisorInitials = club.advisor.name.split(/\s+/).filter((w) => /^[A-Za-z]/.test(w)).map((w) => w[0]).join('').slice(0, 2).toUpperCase();
 ---
 <Base
   title={`Meet the team · ${club.clubName}`}
@@ -85,7 +87,7 @@ const advisorEmail = club.advisor.email.startsWith('[') ? undefined : club.advis
           {advisorPhoto ? (
             <Image src={advisorPhoto} alt={`Photo of ${club.advisor.name}`} widths={[240, 360]} sizes="200px" />
           ) : (
-            <span class="lbl member__placeholder">photo</span>
+            <span class="display advisor__initials" aria-hidden="true">{advisorInitials}</span>
           )}
         </div>
         <div class="advisor__text">
@@ -94,11 +96,12 @@ const advisorEmail = club.advisor.email.startsWith('[') ? undefined : club.advis
           <p class="advisor__body">
             Questions about the club?{' '}
             {advisorEmail ? (
-              <a href={`mailto:${advisorEmail}`}>Email {advisorEmail}</a>
+              <>
+                <a href={`mailto:${advisorEmail}`}>Email {advisorEmail}</a> or stop by Room {club.meetings.room}.
+              </>
             ) : (
-              <span>Email {club.advisor.email}</span>
+              <>Stop by Room {club.meetings.room} or ask us at a meeting.</>
             )}
-            {' '}or stop by Room {club.meetings.room}.
           </p>
         </div>
       </div>
@@ -186,6 +189,7 @@ const advisorEmail = club.advisor.email.startsWith('[') ? undefined : club.advis
     justify-content: center;
   }
   .advisor__photo img { width: 100%; height: 100%; object-fit: cover; }
+  .advisor__initials { font-size: 64px; line-height: 1; color: var(--cocoa); }
   .advisor__text { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
   .advisor__name { font-size: clamp(30px, 3.4vw, 42px); line-height: 1.05; }
   .advisor__body { font-size: 18px; line-height: 1.55; }
