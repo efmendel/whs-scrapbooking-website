@@ -85,7 +85,7 @@ public/cursors/           ← scissors cursor images
 | `--honey` | `#E9C766` | button shadow, star |
 | `--cocoa` | `#4A3530` | text (instead of black) |
 
-Fonts are self-hosted with Fontsource: Cherry Bomb One (headings), Gaegu (handwriting), Special Elite (labels) and Nunito (body).
+Fonts are self-hosted: Cherry Bomb One (headings and buttons), Gaegu (handwriting), Special Elite (labels) and Nunito (the class code) come from Fontsource; Fraunces (body text) is bundled in `src/assets/fonts/`.
 
 ### Motion
 

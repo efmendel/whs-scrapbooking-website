@@ -1,3 +1,12 @@
+/* Fraunces is bundled in src/assets/fonts (variable: weight, optical size, SOFT, WONK). */
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('../assets/fonts/fraunces-latin-full.woff2') format('woff2-variations');
+}
+
 /* ------------------------------------------------------------------
    WHS Scrapbooking Club · Strawberry Butter palette
    ------------------------------------------------------------------ */
@@ -22,7 +31,10 @@
   --font-display: 'Cherry Bomb One', 'Arial Rounded MT Bold', system-ui, sans-serif;
   --font-hand: 'Gaegu', 'Comic Sans MS', 'Chalkboard SE', cursive;
   --font-label: 'Special Elite', 'Courier New', monospace;
-  --font-body: 'Nunito Variable', 'Nunito', 'Trebuchet MS', system-ui, sans-serif;
+  /* Fraunces with its "soft" and "wonky" axes on: a warm, slightly quirky serif, like journal text */
+  --font-body: 'Fraunces', Georgia, 'Times New Roman', serif;
+  /* Nunito stays for the class code only, where a lowercase l must never look like a 1 */
+  --font-code: 'Nunito Variable', 'Nunito', 'Trebuchet MS', system-ui, sans-serif;
 
   /* layout */
   --gutter: clamp(20px, 8.9vw, 128px);
@@ -50,6 +62,7 @@ body {
   margin: 0;
   color: var(--cocoa);
   font-family: var(--font-body);
+  font-variation-settings: 'SOFT' 100, 'WONK' 1;
   font-size: 17px;
   line-height: 1.55;
   background-color: var(--cream);
@@ -119,7 +132,9 @@ h1, h2, h3, p { margin: 0; }
   border: 2px solid var(--cocoa);
   border-radius: 999px;
   box-shadow: 4px 4px 0 var(--honey);
-  font-weight: 800;
+  /* buttons use the bubbly display font, same as the nav "Join the club" */
+  font-family: var(--font-display);
+  font-weight: 400;
   font-size: 18px;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
