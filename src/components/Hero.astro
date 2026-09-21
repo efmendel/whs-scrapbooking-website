@@ -10,9 +10,9 @@ const [p1, p2, p3] = club.heroPhotos;
   <div class="hero__copy">
     <h1 class="hero__title display">
       <span class="visually-hidden">{club.clubName}: </span>
-      <span class="hero__line" data-hero="line">Cut it.</span>
-      <span class="hero__line" data-hero="line">Stick it.</span>
-      <span class="hero__line" data-hero="line">Keep it.</span>
+      <span class="hero__line" data-hero="line">Cut,</span>
+      <span class="hero__line hero__line--2" data-hero="line">paste,</span>
+      <span class="hero__line hero__line--3" data-hero="line">keep</span>
       <svg class="hero__squiggle" viewBox="0 0 340 24" fill="none" aria-hidden="true">
         <path
           data-squiggle
@@ -23,13 +23,12 @@ const [p1, p2, p3] = club.heroPhotos;
     </h1>
 
     <p class="hero__lede" data-hero="copy">
-      {club.schoolName}’s scrapbooking club: a calm, creative corner where we turn memories into pages and
-      take a breather while we do it.
+      Come join {club.schoolName}’s scrapbooking club for a creative way to preserve your favorite memories!
     </p>
 
     <div class="hero__actions" data-hero="copy">
       <a href="#join" class="btn">
-        <span>Join the club</span>
+        <span>Join the Club</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
       </a>
       <a href="#join" class="hero__code">
@@ -94,16 +93,19 @@ const [p1, p2, p3] = club.heroPhotos;
   }
   .hero__title {
     position: relative;
-    font-size: clamp(64px, 7.5vw, 108px);
-    line-height: 0.95;
+    font-size: clamp(64px, 8.2vw, 124px);
+    line-height: 0.98;
     padding-bottom: 6px;
   }
-  .hero__line { display: block; }
+  .hero__line { display: block; white-space: nowrap; }
+  /* each word steps further right, like cut-out letters laid down the page, so the short slogan fills the column */
+  .hero__line--2 { padding-left: 0.9em; }
+  .hero__line--3 { padding-left: 1.8em; }
   .hero__squiggle {
     position: absolute;
-    left: 0;
+    left: 1.8em;
     bottom: -24px;
-    width: min(340px, 72%);
+    width: 2.3em; /* underlines "keep" */
     height: auto;
   }
   .hero__lede {
@@ -145,6 +147,8 @@ const [p1, p2, p3] = club.heroPhotos;
     aspect-ratio: 560 / 660;
   }
   .hero__collage :global(.hc) { position: absolute; }
+  /* captions shrink with the collage so they stay on one line on smaller laptops */
+  .hero__collage :global(.polaroid__caption) { font-size: clamp(19px, 2vw, 28px); white-space: nowrap; }
   .hero__collage :global(.hc--1) { left: 2%; top: 3%; width: 44.6%; }
   .hero__collage :global(.hc--2) { left: 53.5%; top: 13.6%; width: 41%; }
   .hero__collage :global(.hc--3) { left: 19.6%; top: 57.5%; width: 42.9%; }
@@ -161,6 +165,7 @@ const [p1, p2, p3] = club.heroPhotos;
       min-height: 0;
       gap: 32px;
     }
+    .hero__title { font-size: min(17vw, 96px); }
     .hero__actions { flex-direction: column; align-items: stretch; width: 100%; }
     .hero__code { flex-direction: row; justify-content: space-between; align-items: center; rotate: 0deg; }
     .hero__code-value { font-size: 20px; }

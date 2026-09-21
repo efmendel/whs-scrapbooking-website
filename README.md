@@ -17,11 +17,11 @@ npm run preview    # serves ./dist to double-check the build
 
 ### Club info: `src/data/club.json`
 
-The class code, Classroom link, meeting days/time/room, next meeting date, supplies note, advisor and photo captions all live in this one file. Replace anything in `[brackets]` and save.
+The class code, Classroom link, meeting room, where meetings are announced, supplies note, advisor and photo captions all live in this one file. Replace anything in `[brackets]` and save.
 
 ```json
 "classroom": { "code": "abc1234", "link": "https://classroom.google.com/c/..." },
-"meetings": { "days": "Tuesdays", "time": "3:15 PM", "room": "204", "nextDate": "Oct 7" }
+"meetings": { "room": "224", "announcedOn": "BDTV" }
 ```
 
 ### Photos: `src/assets/gallery/`
@@ -33,7 +33,7 @@ Square-ish photos look best. Astro resizes and compresses them automatically, an
 
 ### Meet the team: `src/data/club.json` → `team`
 
-Each officer has a `name`, `role`, `grade`, `image` and `bio`. Put officer photos in `src/assets/team/` and set `"image"` to the file name. Entries with `"featured": true` (the co-presidents) get their own row of bigger cards at the top. Add or remove entries and the page adjusts. The advisor card uses `advisor.name`, `advisor.email` and `advisor.image`. Leave `email` as `""` to hide it (the card then just points people to the room), and without an `image` the card shows the advisor's initials.
+Each officer has a `name`, `role`, `grade`, `image` and `bio`. Put officer photos in `src/assets/team/` and set `"image"` to the file name. Entries with `"featured": true` (the co-presidents) get their own row of bigger cards at the top. Add or remove entries and the page adjusts. `contact` is who questions go to: their email shows in the footer and under the class code. The advisor card uses `advisor.name`, `advisor.email` and `advisor.image`. Without an `image` the card shows the advisor's initials; `email` is shown in the footer when filled in.
 
 You can do all of this in GitHub's website editor. Once the site is hosted (below), each save redeploys it in about a minute.
 

@@ -31,8 +31,6 @@ const officers = team.filter((m) => !m.featured);
 const perRow = officers.length <= 5 ? Math.max(officers.length, 1) : Math.ceil(officers.length / Math.ceil(officers.length / 5));
 
 const advisorPhoto = findPhoto(club.advisor.image);
-// Leave advisor.email empty ("") to hide it; the card then just points people to the room.
-const advisorEmail = club.advisor.email && !club.advisor.email.startsWith('[') ? club.advisor.email : undefined;
 const advisorInitials = club.advisor.name.split(/\s+/).filter((w) => /^[A-Za-z]/.test(w)).map((w) => w[0]).join('').slice(0, 2).toUpperCase();
 ---
 <Base
@@ -93,16 +91,6 @@ const advisorInitials = club.advisor.name.split(/\s+/).filter((w) => /^[A-Za-z]/
         <div class="advisor__text">
           <span class="lbl">Club advisor</span>
           <h2 id="advisor-title" class="display advisor__name">{club.advisor.name}</h2>
-          <p class="advisor__body">
-            Questions about the club?{' '}
-            {advisorEmail ? (
-              <>
-                <a href={`mailto:${advisorEmail}`}>Email {advisorEmail}</a> or stop by Room {club.meetings.room}.
-              </>
-            ) : (
-              <>Stop by Room {club.meetings.room} or ask us at a meeting.</>
-            )}
-          </p>
         </div>
       </div>
     </section>
@@ -111,7 +99,7 @@ const advisorInitials = club.advisor.name.split(/\s+/).filter((w) => /^[A-Za-z]/
       <TornLabel color="pink" tilt={-2}>want in?</TornLabel>
       <h2 class="section-title" data-rise>Come make pages with us</h2>
       <a href="/#join" class="btn">
-        <span>Join the club</span>
+        <span>Join the Club</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
       </a>
     </section>
@@ -192,8 +180,6 @@ const advisorInitials = club.advisor.name.split(/\s+/).filter((w) => /^[A-Za-z]/
   .advisor__initials { font-size: 64px; line-height: 1; color: var(--cocoa); }
   .advisor__text { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
   .advisor__name { font-size: clamp(30px, 3.4vw, 42px); line-height: 1.05; }
-  .advisor__body { font-size: 18px; line-height: 1.55; }
-  .advisor__body a { color: var(--rose); text-decoration: underline; text-underline-offset: 3px; }
 
   /* ---------- call to action ---------- */
   .team-cta {
@@ -224,7 +210,6 @@ const advisorInitials = club.advisor.name.split(/\s+/).filter((w) => /^[A-Za-z]/
     .advisor__card { grid-template-columns: minmax(0, 1fr); padding: 36px 24px 28px; gap: 20px; rotate: 0.5deg; }
     .advisor__photo { width: 140px; }
     .advisor__clip { left: auto; right: 32px; top: -28px; width: 32px; height: 86px; }
-    .advisor__body { font-size: 16px; }
-    .team-cta { padding-bottom: 96px; }
+      .team-cta { padding-bottom: 96px; }
   }
 </style>

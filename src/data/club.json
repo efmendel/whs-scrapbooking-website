@@ -7,10 +7,8 @@
     "link": "https://classroom.google.com/"
   },
   "meetings": {
-    "days": "[DAYS]",
-    "time": "[TIME]",
     "room": "224",
-    "nextDate": "[Date]"
+    "announcedOn": "BDTV"
   },
   "suppliesNote": "We provide the tools (scissors, paper, markers, tape, glue sticks, stickers and more). You bring the memories.",
   "advisor": {
@@ -18,19 +16,24 @@
     "email": "",
     "image": ""
   },
+  "contact": {
+    "name": "Norah",
+    "role": "Co-President",
+    "email": "norahmendel123@gmail.com"
+  },
   "established": "April 2026",
   "heroPhotos": [
     {
-      "image": "",
-      "caption": "[caption]"
+      "image": "officers.jpg",
+      "caption": "the founders"
     },
     {
-      "image": "",
-      "caption": "[caption]"
+      "image": "meeting-day.jpg",
+      "caption": "meeting day"
     },
     {
-      "image": "",
-      "caption": "[caption]"
+      "image": "glue-and-scissors.jpg",
+      "caption": "cut & paste"
     }
   ],
   "gallery": [

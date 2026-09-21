@@ -8,10 +8,10 @@ interface Props {
 const { current = 'home' } = Astro.props;
 
 const links = [
-  { href: '/#purpose', label: 'Our purpose' },
-  { href: '/#pages', label: 'Our pages' },
-  { href: '/#join', label: 'Get involved' },
-  { href: '/team', label: 'Meet the team', page: 'team' },
+  { href: '/#purpose', label: 'Our Purpose' },
+  { href: '/#pages', label: 'Our Pages' },
+  { href: '/#join', label: 'Get Involved' },
+  { href: '/team', label: 'Meet the Team', page: 'team' },
 ];
 ---
 <header class="nav wrap">
@@ -22,7 +22,7 @@ const links = [
 
   <nav class="nav__links" aria-label="Main">
     {links.map((l) => <a href={l.href} aria-current={l.page === current ? 'page' : undefined}>{l.label}</a>)}
-    <a href="/#join" class="btn btn--small">Join the club</a>
+    <a href="/#join" class="btn btn--small">Join the Club</a>
   </nav>
 
   <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
@@ -34,7 +34,7 @@ const links = [
 
   <nav id="mobile-menu" class="nav__sheet" aria-label="Main" hidden>
     {links.map((l) => <a href={l.href} class="display" aria-current={l.page === current ? 'page' : undefined}>{l.label}</a>)}
-    <a href="/#join" class="btn">Join the club</a>
+    <a href="/#join" class="btn">Join the Club</a>
   </nav>
 </header>
 

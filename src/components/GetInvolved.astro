@@ -2,7 +2,7 @@
 import club from '../data/club.json';
 import TornLabel from './TornLabel.astro';
 
-const { meetings, classroom, advisor } = club;
+const { meetings, classroom } = club;
 const steps = [
   {
     title: 'Join our Google Classroom',
@@ -11,7 +11,7 @@ const steps = [
   },
   {
     title: 'Come to a meeting',
-    body: `We meet ${meetings.days} at ${meetings.time} in Room ${meetings.room}.`,
+    body: `We meet in Room ${meetings.room}. Meeting days change, so listen for us on ${meetings.announcedOn} during morning announcements.`,
     color: 'var(--butter)',
   },
   {
@@ -67,14 +67,14 @@ const steps = [
         <span>Open Google Classroom</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" /></svg>
       </a>
-      <p class="hand code-card__help">code not working? ask {advisor.name}</p>
+      <p class="hand code-card__help">code not working? <a href={`mailto:${club.contact.email}`}>email {club.contact.name}!</a></p>
     </div>
 
     <div class="ticket join__ticket" data-ticket>
       <div class="ticket__main">
         <span class="lbl" style="font-size: 11px">next meeting</span>
-        <span class="display" style="font-size: 24px; line-height: 1">{meetings.nextDate}</span>
-        <span class="lbl" style="font-size: 11px">{meetings.time} · room {meetings.room}</span>
+        <span class="display" style="font-size: 24px; line-height: 1">Watch {meetings.announcedOn}</span>
+        <span class="lbl" style="font-size: 11px">announcements · room {meetings.room}</span>
       </div>
       <div class="ticket__stub">
         <span class="lbl">admit</span>
@@ -201,6 +201,7 @@ const steps = [
   }
   .code-card__copy:hover { background: var(--blush); }
   .code-card__help { font-size: 24px; color: var(--rose); margin-top: 6px; }
+  .code-card__help a { color: inherit; text-decoration: underline; text-underline-offset: 4px; white-space: nowrap; }
 
   .join__ticket {
     position: absolute;
