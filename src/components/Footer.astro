@@ -1,0 +1,71 @@
+---
+import club from '../data/club.json';
+import { tornBand } from '../lib/paper';
+
+const edge = tornBand({ top: true, bottom: false });
+const year = new Date().getFullYear();
+---
+<footer class="footer" style={`clip-path: ${edge}`}>
+  <div class="wrap footer__inner">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <span class="display footer__name">{club.clubName}</span>
+        <span>{club.schoolName}</span>
+      </div>
+      <div class="footer__cols">
+        <nav class="footer__col" aria-label="Footer">
+          <span class="lbl">Explore</span>
+          <a href="/#purpose">Our purpose</a>
+          <a href="/#pages">Our pages</a>
+          <a href="/#join">Get involved</a>
+          <a href="/team">Meet the team</a>
+        </nav>
+        <div class="footer__col">
+          <span class="lbl">Contact</span>
+          <span>Advisor: {club.advisor.name}</span>
+          <span>{club.advisor.email}</span>
+          <span>Room {club.meetings.room}</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span class="hand footer__sign">made by hand at {club.shortSchool}</span>
+      <span class="lbl">© {year} {club.clubName}</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--blush);
+    padding: 90px 0 56px;
+  }
+  .footer__inner { display: flex; flex-direction: column; gap: 40px; }
+  .footer__top { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap; }
+  .footer__brand { display: flex; flex-direction: column; gap: 10px; font-size: 18px; }
+  .footer__name { font-size: 36px; line-height: 1; }
+  .footer__cols { display: flex; gap: 72px; }
+  .footer__col { display: flex; flex-direction: column; font-size: 17px; line-height: 1.8; }
+  .footer__col .lbl { margin-bottom: 6px; }
+  .footer__bottom {
+    padding-top: 22px;
+    border-top: 2px dashed rgb(74 53 48 / 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .footer__sign { font-size: 24px; }
+  .footer__bottom .lbl { font-size: 12px; }
+
+  @media (max-width: 720px) {
+    .footer { padding: 60px 0 36px; }
+    .footer__inner { gap: 26px; }
+    .footer__name { font-size: 28px; }
+    .footer__cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; width: 100%; }
+    .footer__col { font-size: 16px; line-height: 1.9; }
+    .footer__bottom { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .footer__sign { font-size: 21px; }
+  }
+</style>

@@ -1,0 +1,140 @@
+---
+import TornLabel from './TornLabel.astro';
+import { tornBand } from '../lib/paper';
+
+const band = tornBand({ top: true, bottom: true });
+const bandMobile = tornBand({ top: true, bottom: true, points: 24, depth: 10 });
+
+const pillars = [
+  {
+    title: 'Slow down',
+    body: 'Take an hour away from screens and deadlines. Your hands stay busy and your mind gets a little quieter.',
+    tape: 'gingham',
+    tilt: -1.2,
+    tapeTilt: -3,
+    dot: 'var(--butter)',
+    icon: '<path d="M4 10h12v4a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M16 11h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M8 3c-1 1.5 1 2.5 0 4M12 3c-1 1.5 1 2.5 0 4"/>',
+  },
+  {
+    title: 'Make it yours',
+    body: 'You don’t need art skills. Every page is personal, and there’s no wrong way to make one.',
+    tape: 'dots',
+    tilt: 0.8,
+    tapeTilt: 4,
+    dot: 'var(--blush)',
+    icon: '<path d="M12 3c.6 4.6 2.4 6.4 7 7-4.6.6-6.4 2.4-7 7-.6-4.6-2.4-6.4-7-7 4.6-.6 6.4-2.4 7-7z"/><path d="M19 16v4M17 18h4"/>',
+  },
+  {
+    title: 'Look out for each other',
+    body: 'Anyone is welcome at our table, and it’s okay to talk about how you’re really doing.',
+    tape: 'stripes',
+    tilt: -0.6,
+    tapeTilt: -2,
+    dot: 'var(--apricot)',
+    icon: '<path d="M12 20s-7-4.3-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.7-7 10-7 10z"/>',
+  },
+];
+---
+<section id="purpose" class="purpose" style={`--band: ${band}; --band-m: ${bandMobile};`}>
+  <div class="wrap purpose__inner">
+    <TornLabel color="pink" tilt={-2}>our purpose</TornLabel>
+    <h2 class="section-title purpose__title" data-rise>
+      Spreading the love of scrapbooking, and making room to breathe.
+    </h2>
+    <p class="purpose__lede" data-rise>
+      We cut, glue and doodle our memories onto the page. Along the way, the club gives everyone time to slow
+      down, check in with themselves and look out for each other.
+    </p>
+
+    <ul class="pillars" role="list">
+      {pillars.map((p) => (
+        <li class="pillar" style={`--tilt: ${p.tilt}deg`} data-note>
+          <span
+            class:list={['tape', `tape--${p.tape}`]}
+            style={`top: -13px; left: 50%; margin-left: -54px; width: 108px; rotate: ${p.tapeTilt}deg;`}
+            data-tape
+          ></span>
+          <span class="pillar__icon" style={`background: ${p.dot}`}>
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={p.icon} />
+          </span>
+          <h3 class="display pillar__title">{p.title}</h3>
+          <p>{p.body}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .purpose {
+    position: relative;
+    margin-top: 20px;
+    padding: 120px 0 128px;
+    background: var(--paper);
+    clip-path: var(--band);
+  }
+  .purpose__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    text-align: center;
+  }
+  .purpose__title { max-width: 960px; }
+  .purpose__lede {
+    max-width: 720px;
+    font-size: 20px;
+    line-height: 1.6;
+    text-wrap: pretty;
+  }
+  .pillars {
+    list-style: none;
+    margin: 44px 0 0;
+    padding: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 40px;
+    text-align: left;
+  }
+  .pillar {
+    position: relative;
+    padding: 40px 32px 34px;
+    background: var(--card);
+    box-shadow: 0 12px 26px -16px rgb(60 40 35 / 0.4);
+    rotate: var(--tilt);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: rotate 0.35s ease, translate 0.35s ease;
+  }
+  .pillar:hover { rotate: 0deg; translate: 0 -4px; }
+  .pillar__icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pillar__title { font-size: 30px; line-height: 1.05; }
+  .pillar p { font-size: 17px; line-height: 1.55; text-wrap: pretty; }
+
+  @media (max-width: 960px) {
+    .purpose { padding: 64px 0 72px; clip-path: var(--band-m); }
+    .purpose__inner { align-items: flex-start; text-align: left; gap: 18px; }
+    .purpose__lede { font-size: 17px; }
+    .pillars { grid-template-columns: minmax(0, 1fr); gap: 30px; margin-top: 22px; }
+    .pillar {
+      display: grid;
+      grid-template-columns: 48px minmax(0, 1fr);
+      column-gap: 16px;
+      row-gap: 6px;
+      padding: 30px 22px 24px;
+    }
+    .pillar__icon { width: 48px; height: 48px; grid-row: span 2; }
+    .pillar__icon svg { width: 24px; height: 24px; }
+    .pillar__title { font-size: 24px; line-height: 1.1; }
+    .pillar p { font-size: 16px; line-height: 1.5; }
+  }
+</style>

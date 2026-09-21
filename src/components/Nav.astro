@@ -1,0 +1,128 @@
+---
+import club from '../data/club.json';
+import Sticker from './Sticker.astro';
+
+interface Props {
+  current?: 'home' | 'team';
+}
+const { current = 'home' } = Astro.props;
+
+const links = [
+  { href: '/#purpose', label: 'Our purpose' },
+  { href: '/#pages', label: 'Our pages' },
+  { href: '/#join', label: 'Get involved' },
+  { href: '/team', label: 'Meet the team', page: 'team' },
+];
+---
+<header class="nav wrap">
+  <a href="/" class="nav__brand" aria-label={`${club.clubName} home`}>
+    <Sticker kind="heart" size={44} rotate={-10} class="nav__logo" />
+    <span class="display">{club.clubName}</span>
+  </a>
+
+  <nav class="nav__links" aria-label="Main">
+    {links.map((l) => <a href={l.href} aria-current={l.page === current ? 'page' : undefined}>{l.label}</a>)}
+    <a href="/#join" class="btn btn--small">Join the club</a>
+  </nav>
+
+  <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+    <span class="visually-hidden">Menu</span>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true">
+      <path class="bar1" d="M4 7h16" /><path class="bar2" d="M4 12h16" /><path class="bar3" d="M4 17h16" />
+    </svg>
+  </button>
+
+  <nav id="mobile-menu" class="nav__sheet" aria-label="Main" hidden>
+    {links.map((l) => <a href={l.href} class="display" aria-current={l.page === current ? 'page' : undefined}>{l.label}</a>)}
+    <a href="/#join" class="btn">Join the club</a>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.nav__toggle');
+  const sheet = document.getElementById('mobile-menu');
+  if (toggle && sheet) {
+    const set = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      sheet.hidden = !open;
+    };
+    toggle.addEventListener('click', () => set(sheet.hidden));
+    sheet.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('a')) set(false);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') set(false);
+    });
+  }
+</script>
+
+<style>
+  .nav {
+    position: relative;
+    z-index: 20;
+    height: 92px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .nav__brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 26px;
+    line-height: 1;
+  }
+  .nav__brand:hover { color: var(--cocoa); }
+  .nav__brand :global(.nav__logo) { position: static; }
+  .nav__links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 19px;
+  }
+  .nav__links a { font-weight: 400; letter-spacing: 0.01em; }
+  .nav__links a[aria-current='page'],
+  .nav__sheet a[aria-current='page'] {
+    text-decoration: underline wavy var(--rose) 2px;
+    text-underline-offset: 6px;
+  }
+  .nav__toggle,
+  .nav__sheet { display: none; }
+
+  @media (max-width: 1100px) {
+    .nav { height: 68px; }
+    .nav__brand { font-size: 18px; gap: 8px; }
+    .nav__brand :global(.nav__logo) { width: 32px; height: 32px; }
+    .nav__links { display: none; }
+    .nav__toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--blush);
+      color: var(--cocoa);
+      border: 2px solid var(--cocoa);
+    }
+    .nav__sheet:not([hidden]) {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 18px;
+      position: absolute;
+      top: 64px;
+      right: var(--gutter);
+      left: var(--gutter);
+      padding: 24px;
+      background: var(--card);
+      box-shadow: var(--shadow-soft);
+      rotate: -1deg;
+      font-size: 26px;
+    }
+    .nav__sheet .btn { align-self: stretch; margin-top: 6px; }
+  }
+</style>

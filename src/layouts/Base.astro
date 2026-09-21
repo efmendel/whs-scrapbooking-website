@@ -1,0 +1,46 @@
+---
+import '@fontsource/cherry-bomb-one/latin-400.css';
+import '@fontsource/gaegu/latin-400.css';
+import '@fontsource/gaegu/latin-700.css';
+import '@fontsource/special-elite/latin-400.css';
+import '@fontsource-variable/nunito';
+import '../styles/global.css';
+import club from '../data/club.json';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = `${club.clubName} · ${club.schoolName}`,
+  description = `The scrapbooking club at ${club.schoolName}: a calm, creative corner where we turn memories into pages. Find our Google Classroom code and how to join.`,
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#fbf5e9" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <!-- Turn on entrance animations only when JS runs and motion is welcome. -->
+    <script is:inline>
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion');
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  body { position: relative; }
+</style>

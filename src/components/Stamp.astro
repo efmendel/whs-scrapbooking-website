@@ -1,0 +1,42 @@
+---
+interface Props {
+  label: string;
+  class?: string;
+  style?: string;
+  hero?: boolean;
+}
+const { label, class: className = '', style = '', hero = false } = Astro.props;
+const petals = [
+  [50, 28], [70.9, 43.2], [62.9, 67.8], [37.1, 67.8], [29.1, 43.2],
+];
+---
+<div class:list={['stamp', className]} style={style} data-hero={hero ? 'sticker' : undefined} aria-hidden="true">
+  <div class="stamp__face">
+    <svg width="64" height="64" viewBox="0 0 100 100">
+      {petals.map(([cx, cy]) => <circle cx={cx} cy={cy} r="17" fill="var(--rose)" />)}
+      <circle cx="50" cy="50" r="12" fill="var(--cream)" />
+    </svg>
+    <span class="lbl">{label}</span>
+  </div>
+</div>
+
+<style>
+  .stamp {
+    width: 124px;
+    padding: 8px;
+    /* perforated edge: repeating holes, covered in the middle by the face */
+    background: radial-gradient(circle at 7px 7px, transparent 4px, var(--card) 4.6px) -7px -7px / 14px 14px;
+    filter: drop-shadow(0 5px 6px rgb(60 40 35 / 0.22));
+  }
+  .stamp__face {
+    height: 150px;
+    padding: 14px 8px 12px;
+    background: var(--butter);
+    box-shadow: inset 0 0 0 5px var(--card);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .stamp .lbl { font-size: 11px; }
+</style>

@@ -1,0 +1,66 @@
+---
+import { Image } from 'astro:assets';
+import { findPhoto } from '../lib/photos';
+
+interface Props {
+  image?: string;
+  caption: string;
+  /** Placeholder pattern shown until a real photo is added. */
+  fill?: string;
+  tilt?: number;
+  tape?: 'gingham' | 'dots' | 'stripes' | 'candy';
+  tapeStyle?: string;
+  placeholderLabel?: string;
+  class?: string;
+  style?: string;
+  sizes?: string;
+  hero?: boolean;
+  eager?: boolean;
+}
+const {
+  image,
+  caption,
+  fill = 'fill-stripes-pink',
+  tilt = 0,
+  tape = 'dots',
+  tapeStyle = 'top: -14px; left: 50%; margin-left: -55px; rotate: 4deg;',
+  placeholderLabel = 'photo',
+  class: className = '',
+  style = '',
+  sizes = '(max-width: 720px) 45vw, 360px',
+  hero = false,
+  eager = false,
+} = Astro.props;
+const photo = findPhoto(image);
+const isPlaceholder = caption.startsWith('[');
+---
+<figure
+  class:list={['polaroid', className]}
+  style={`--tilt: ${tilt}deg; transform: rotate(var(--tilt)); ${style}`}
+  data-hero={hero ? 'polaroid' : undefined}
+>
+  <div class:list={['polaroid__photo', !photo && fill]} data-develop>
+    {photo ? (
+      <Image
+        src={photo}
+        alt={isPlaceholder ? '' : caption}
+        widths={[360, 540, 720]}
+        sizes={sizes}
+        loading={eager ? 'eager' : 'lazy'}
+      />
+    ) : (
+      <span class="lbl polaroid__placeholder">{placeholderLabel}</span>
+    )}
+  </div>
+  <figcaption class="polaroid__caption hand">{caption}</figcaption>
+  <span class:list={['tape', `tape--${tape}`]} style={tapeStyle} data-tape></span>
+</figure>
+
+<style>
+  .polaroid { margin: 0; }
+  .polaroid:hover {
+    transform: rotate(0deg) translateY(-6px) !important;
+    box-shadow: 0 22px 34px -16px rgb(60 40 35 / 0.45);
+    z-index: 3;
+  }
+</style>

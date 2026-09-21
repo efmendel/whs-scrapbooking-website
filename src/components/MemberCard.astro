@@ -1,0 +1,319 @@
+---
+import { Image } from 'astro:assets';
+import Sticker from './Sticker.astro';
+import { findPhoto } from '../lib/photos';
+
+interface Props {
+  name: string;
+  role: string;
+  grade: string;
+  bio: string;
+  image?: string;
+  /** Co-presidents: bigger polaroid with a star sticker. */
+  featured?: boolean;
+  look: {
+    fill: string;
+    tape: string;
+    tag: string;
+    tilt: number;
+    tapeTilt: number;
+  };
+}
+const { name, role, grade, bio, image, featured = false, look } = Astro.props;
+const photo = findPhoto(image);
+const isPlaceholder = name.startsWith('[');
+const bioPlaceholder = bio.startsWith('[');
+const who = isPlaceholder ? role : name;
+const noteId = `note-${role}-${name}`.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+---
+<!--
+  The polaroid is taped down. A lined note card is tucked behind it (its edge peeks
+  out at the corner). Tapping pulls the note out from behind and lays it on top,
+  like shuffling cards; tapping again tucks it back.
+-->
+<article class:list={['member', featured && 'member--featured']} style={`--tilt: ${look.tilt}deg`} data-card data-member>
+  <span
+    class:list={['tape', `tape--${look.tape}`]}
+    style={`top: -13px; left: 50%; margin-left: ${featured ? -60 : -46}px; width: ${featured ? 120 : 92}px; rotate: ${look.tapeTilt}deg;`}
+    data-tape
+  ></span>
+  {featured && <Sticker kind="star" rotate={14} class="member__star" />}
+
+  <!-- the note underneath -->
+  <div class="member__note" id={noteId}>
+    <span class="lbl member__from">a note from</span>
+    <span class="display member__note-name">{name}</span>
+    <p class:list={['member__bio', bioPlaceholder && 'member__bio--empty']}>{bio}</p>
+    <button class="hand member__hint member__close" type="button" data-close tabindex="-1">
+      tuck it back
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+    </button>
+  </div>
+
+  <!-- the taped polaroid on top -->
+  <button
+    class="member__flap"
+    type="button"
+    aria-expanded="false"
+    aria-controls={noteId}
+    aria-label={`${who}, ${role}. Pull out their note to read their bio`}
+    data-flap
+  >
+    <span class:list={['member__photo', !photo && look.fill]} data-develop>
+      {photo ? (
+        <Image
+          src={photo}
+          alt=""
+          widths={featured ? [280, 420, 560] : [220, 330, 440]}
+          quality={82}
+          sizes={featured ? '(max-width: 720px) 45vw, 280px' : '(max-width: 720px) 45vw, 212px'}
+        />
+      ) : (
+        <span class="lbl member__placeholder">photo</span>
+      )}
+    </span>
+    <span class="member__role" style={`background: ${look.tag}`}><span class="lbl">{role}</span></span>
+    <span class="display member__name">{name}</span>
+    <span class="lbl member__grade">{grade}</span>
+    <span class="hand member__hint" aria-hidden="true">
+      tap to read my note
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+    </span>
+  </button>
+</article>
+
+<script>
+  const closers = new Map<HTMLElement, () => void>();
+  document.querySelectorAll<HTMLElement>('[data-member]').forEach((card) => {
+    const flap = card.querySelector<HTMLButtonElement>('[data-flap]');
+    const note = card.querySelector<HTMLElement>('.member__note');
+    const close = card.querySelector<HTMLButtonElement>('[data-close]');
+    if (!flap || !note || !close) return;
+
+    const isOpen = () => card.classList.contains('is-open');
+    const set = (open: boolean, focus = true) => {
+      if (open === isOpen()) return;
+      if (open) closers.forEach((fn, other) => other !== card && fn());
+      card.classList.toggle('is-open', open);
+      card.classList.toggle('is-closing', !open);
+      flap.setAttribute('aria-expanded', String(open));
+      close.tabIndex = open ? 0 : -1;
+      if (focus) (open ? close : flap).focus({ preventScroll: true });
+    };
+    note.addEventListener('animationend', () => card.classList.remove('is-closing'));
+    closers.set(card, () => isOpen() && set(false, false));
+
+    flap.addEventListener('click', () => set(!isOpen()));
+    note.addEventListener('click', () => isOpen() && set(false));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen()) set(false);
+    });
+  });
+</script>
+
+<style>
+  .member {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    rotate: var(--tilt);
+    transition: rotate 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), translate 0.35s ease;
+  }
+  .member:hover { rotate: 0deg; translate: 0 -4px; }
+  .member .tape { z-index: 3; }
+  .member--featured :global(.member__star) {
+    position: absolute;
+    top: -24px;
+    right: -22px;
+    width: 64px;
+    height: auto;
+    z-index: 4;
+  }
+
+  /* ---------- the taped polaroid (front) ---------- */
+  .member__flap {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 12px;
+    border: 0;
+    background: var(--card);
+    color: inherit;
+    font: inherit;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+    transition: filter 0.4s ease;
+    cursor: pointer;
+  }
+  .member.is-open .member__flap { filter: brightness(0.97); }
+
+  .member__photo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+  }
+  .member__photo :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; }
+  .member__placeholder { opacity: 0.6; }
+  .member__role {
+    position: relative;
+    max-width: calc(100% - 4px);
+    margin-top: -15px;
+    padding: 6px 10px 6px 22px;
+    clip-path: polygon(12px 0, 100% 0, 100% 100%, 12px 100%, 0 50%);
+    rotate: -3deg;
+    filter: drop-shadow(0 2px 2px rgb(60 40 35 / 0.15));
+  }
+  .member__role::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    width: 7px;
+    height: 7px;
+    margin-top: -3.5px;
+    border-radius: 50%;
+    background: var(--card);
+  }
+  /* one line, always, so every card in a row is the same height */
+  .member__role .lbl { display: block; font-size: 10.5px; line-height: 1.3; letter-spacing: 0.03em; white-space: nowrap; }
+  .member__name { margin-top: 10px; font-size: 22px; line-height: 1.1; white-space: nowrap; }
+  .member__grade { margin-top: 3px; font-size: 11px; opacity: 0.7; }
+  .member__hint {
+    margin-top: auto;
+    padding-top: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    font-size: 16px;
+    line-height: 1;
+    color: var(--rose);
+  }
+
+  /* ---------- the note underneath (same box as the polaroid) ---------- */
+  .member__note {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 14px 12px 22px;
+    background-color: var(--card);
+    background-image:
+      linear-gradient(90deg, transparent 13px, rgb(212 111 135 / 0.5) 13px, rgb(212 111 135 / 0.5) 14.5px, transparent 14.5px),
+      repeating-linear-gradient(to bottom, transparent 0, transparent 19px, rgb(120 146 180 / 0.22) 19px, rgb(120 146 180 / 0.22) 20px);
+    background-position: 0 0, 0 14px;
+    box-shadow: var(--shadow-soft);
+    text-align: left;
+    overflow: hidden;
+    --rest: translate(10px, 9px) rotate(3.5deg);
+    --peek: translate(20px, 14px) rotate(6deg);
+    --away: translate(82%, 6px) rotate(9deg);
+    --front: translate(-2px, 6px) rotate(-2deg);
+    transform: var(--rest);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  /* on hover the tucked note slides out a little, so it's clear there's something behind */
+  .member:not(.is-open):not(.is-closing):hover .member__note { transform: var(--peek); }
+
+  .member.is-open { z-index: 10; }
+  .member.is-open .member__note {
+    animation: note-out 0.8s cubic-bezier(0.3, 0.7, 0.25, 1) forwards;
+    bottom: auto;
+    min-height: 100%;
+    overflow: visible;
+    cursor: pointer;
+  }
+  .member.is-open .member__bio { overflow: visible; }
+  .member.is-closing { z-index: 9; }
+  .member.is-closing .member__note { animation: note-in 0.65s cubic-bezier(0.3, 0.7, 0.25, 1) forwards; }
+
+  /* pull out to the side (still behind), then come back over the top */
+  @keyframes note-out {
+    0%   { transform: var(--peek); z-index: 1; }
+    45%  { transform: var(--away); z-index: 1; }
+    55%  { transform: var(--away); z-index: 5; }
+    100% { transform: var(--front); z-index: 5; box-shadow: 0 18px 28px -14px rgb(60 40 35 / 0.45); }
+  }
+  /* slide back out to the side, then tuck in behind */
+  @keyframes note-in {
+    0%   { transform: var(--front); z-index: 5; }
+    45%  { transform: var(--away); z-index: 5; }
+    55%  { transform: var(--away); z-index: 1; }
+    100% { transform: var(--rest); z-index: 1; }
+  }
+
+  .member__from { font-size: 9.5px; opacity: 0.65; }
+  .member__note-name { font-size: 20px; line-height: 1.1; margin: 2px 0 6px; }
+  .member__bio {
+    margin: 0;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    font-size: 12.5px;
+    line-height: 20px;
+    text-wrap: pretty;
+    scrollbar-width: thin;
+  }
+  .member__bio--empty { opacity: 0.55; }
+  .member__close {
+    align-self: flex-end;
+    border: 0;
+    background: none;
+    padding: 8px 0 0;
+    cursor: pointer;
+  }
+
+  /* ---------- co-presidents ---------- */
+  .member--featured .member__flap { padding: 14px; }
+  .member--featured .member__role { margin-top: -17px; padding: 7px 14px 7px 26px; }
+  .member--featured .member__role .lbl { font-size: 12.5px; }
+  .member--featured .member__name { font-size: 30px; margin-top: 12px; }
+  .member--featured .member__grade { font-size: 12px; }
+  .member--featured .member__note {
+    padding: 24px 20px 14px 28px;
+    background-image:
+      linear-gradient(90deg, transparent 16px, rgb(212 111 135 / 0.5) 16px, rgb(212 111 135 / 0.5) 17.5px, transparent 17.5px),
+      repeating-linear-gradient(to bottom, transparent 0, transparent 23px, rgb(120 146 180 / 0.22) 23px, rgb(120 146 180 / 0.22) 24px);
+    background-position: 0 0, 0 18px;
+  }
+  .member--featured .member__note-name { font-size: 28px; margin-bottom: 8px; }
+  .member--featured .member__bio { font-size: 14.5px; line-height: 24px; }
+  .member--featured .member__from { font-size: 10.5px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .member__note { transition: none; }
+    .member:not(.is-open):not(.is-closing):hover .member__note { transform: var(--rest); }
+    .member.is-open .member__note { animation: none; transform: var(--front); z-index: 5; }
+    .member.is-closing .member__note { animation: none; }
+  }
+
+  @media (max-width: 720px) {
+    .member__flap { padding: 8px 8px 10px; }
+    .member__name { font-size: 18px; }
+    .member__role { padding: 5px 7px 5px 18px; margin-top: -13px; clip-path: polygon(10px 0, 100% 0, 100% 100%, 10px 100%, 0 50%); }
+    .member__role::before { left: 6px; width: 6px; height: 6px; margin-top: -3px; }
+    .member__role .lbl { font-size: 8.5px; }
+    .member__hint { font-size: 14px; }
+    .member__note { padding: 14px 8px 8px 18px; }
+    .member__from { display: none; }
+    .member__note-name { font-size: 17px; }
+    .member__bio { font-size: 11.5px; line-height: 18px; }
+    .member--featured .member__flap { padding: 9px 9px 10px; }
+    .member--featured .member__name { font-size: 22px; }
+    .member--featured .member__role .lbl { font-size: 10px; }
+    .member--featured .member__note { padding: 16px 10px 10px 20px; }
+    .member--featured .member__note-name { font-size: 20px; }
+    .member--featured .member__bio { font-size: 12px; line-height: 19px; }
+    .member--featured :global(.member__star) { width: 44px; top: -16px; right: -12px; }
+  }
+</style>

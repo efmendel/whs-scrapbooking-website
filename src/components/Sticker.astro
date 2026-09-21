@@ -1,0 +1,50 @@
+---
+interface Props {
+  kind: 'heart' | 'star' | 'flower' | 'sparkle';
+  size?: number;
+  rotate?: number;
+  class?: string;
+  style?: string;
+  /** Set when the sticker is part of the hero entrance animation. */
+  hero?: boolean;
+}
+const { kind, size = 84, rotate = 0, class: className = '', style = '', hero = false } = Astro.props;
+const petals = [
+  [50, 28], [70.9, 43.2], [62.9, 67.8], [37.1, 67.8], [29.1, 43.2],
+];
+---
+<svg
+  class:list={['sticker', className]}
+  width={size}
+  height={size}
+  viewBox="-10 -10 120 120"
+  style={`transform: rotate(${rotate}deg); ${style}`}
+  aria-hidden="true"
+  data-hero={hero ? 'sticker' : undefined}
+>
+  {kind === 'heart' && (
+    <path
+      d="M50 88 C20 66 6 50 6 32 C6 18 17 8 30 8 C39 8 46 13 50 20 C54 13 61 8 70 8 C83 8 94 18 94 32 C94 50 80 66 50 88Z"
+      fill="var(--rose)" stroke="var(--card)" stroke-width="12" stroke-linejoin="round" paint-order="stroke"
+    />
+  )}
+  {kind === 'star' && (
+    <polygon
+      points="50,6 61,38 95,38 67,58 78,92 50,72 22,92 33,58 5,38 39,38"
+      fill="var(--honey)" stroke="var(--card)" stroke-width="12" stroke-linejoin="round" paint-order="stroke"
+    />
+  )}
+  {kind === 'sparkle' && (
+    <path
+      d="M50 5 C54 36 64 46 95 50 C64 54 54 64 50 95 C46 64 36 54 5 50 C36 46 46 36 50 5Z"
+      fill="var(--apricot)" stroke="var(--card)" stroke-width="12" stroke-linejoin="round" paint-order="stroke"
+    />
+  )}
+  {kind === 'flower' && (
+    <>
+      <g fill="var(--card)">{petals.map(([cx, cy]) => <circle cx={cx} cy={cy} r="23" />)}</g>
+      <g fill="var(--blush)">{petals.map(([cx, cy]) => <circle cx={cx} cy={cy} r="17" />)}</g>
+      <circle cx="50" cy="50" r="12" fill="var(--honey)" />
+    </>
+  )}
+</svg>

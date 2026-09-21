@@ -1,0 +1,29 @@
+---
+import { tornLabel } from '../lib/paper';
+
+interface Props {
+  color?: 'pink' | 'butter';
+  font?: 'display' | 'hand';
+  tilt?: number;
+  /** Swap the two edge shapes so neighbouring labels don't look identical. */
+  flip?: boolean;
+  as?: 'div' | 'p';
+  hero?: boolean;
+}
+const { color = 'pink', font = 'display', tilt = -2, flip = false, as: Tag = 'div', hero = false } = Astro.props;
+const outer = tornLabel(flip ? 2.1 : 0.4);
+const inner = tornLabel(flip ? 0.4 : 2.1);
+---
+<Tag class="torn-wrap" data-tear data-hero={hero ? 'label' : undefined} style={`transform: rotate(${tilt}deg)`}>
+  <span class:list={['torn', `torn--${color}`]} style={`clip-path: ${outer}`}>
+    <span class:list={['torn__inner', font]} style={`clip-path: ${inner}`}><slot /></span>
+  </span>
+</Tag>
+
+<style>
+  .torn-wrap {
+    display: inline-block;
+    margin: 0;
+    filter: drop-shadow(0 2px 2px rgb(60 40 35 / 0.12));
+  }
+</style>
