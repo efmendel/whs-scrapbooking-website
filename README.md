@@ -89,7 +89,7 @@ Fonts are self-hosted: Cherry Bomb One (headings and buttons), Gaegu (handwritin
 
 ### Motion
 
-- **On load:** the torn label and headline pop in, the squiggle draws itself, polaroids drop in and get taped down, and stickers slap on.
+- **On load:** the headline pops in line by line and a squiggle draws itself under "us!", polaroids drop in and get taped down, and stickers slap on.
 - **On scroll:** a washi-tape progress bar grows along the top, and a stitched thread sews down the left side on wide screens. Section labels tear in, the purpose notes flutter in, and gallery photos "develop" and drift at different speeds. The steps get ticked off, the class code gets stamped on, and the ticket slides out and gets punched.
 - **Cursor:** on a mouse or trackpad, the cursor is scissors that snip over links. Clicking an empty spot adds a sticker (up to 12, and each fades after about 9 seconds). Touch devices keep normal behavior.
 - **Reduced motion:** if the visitor's device has "reduce motion" turned on, every animation is skipped and the page is static. If the script ever fails, the hero pieces still appear after 3 seconds.

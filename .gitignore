@@ -16,3 +16,6 @@ npm-debug.log*
 .DS_Store
 .vscode/*
 !.vscode/extensions.json
+
+# design mockups Claude made for reference, not part of the site
+Claude outputs/
