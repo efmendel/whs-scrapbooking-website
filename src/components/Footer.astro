@@ -15,15 +15,17 @@ const year = new Date().getFullYear();
       <div class="footer__cols">
         <nav class="footer__col" aria-label="Footer">
           <span class="lbl">Explore</span>
-          <a href="/#purpose">Our Mission</a>
-          <a href="/#pages">Gallery</a>
-          <a href="/#join">Get Involved</a>
-          <a href="/team">Meet the Team</a>
+          <a href="/#purpose">our mission</a>
+          <a href="/#pages">gallery</a>
+          <a href="/#join">get involved</a>
+          <a href="/team">meet the team</a>
         </nav>
         <div class="footer__col">
           <span class="lbl">Contact</span>
-          <span>Questions? Email {club.contact.name}</span>
-          <a class="footer__email" href={`mailto:${club.contact.email}`}>{club.contact.email}</a>
+          <span>Questions? Email our co-presidents</span>
+          {club.contacts.map((c) => (
+            <a class="footer__email" href={`mailto:${c.email}`}>{c.email}</a>
+          ))}
           <span>Advisor: {club.advisor.name}</span>
           {club.advisor.email && <span>{club.advisor.email}</span>}
           <span>Room {club.meetings.room}</span>

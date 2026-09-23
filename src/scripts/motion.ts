@@ -249,11 +249,14 @@ function stitchThread() {
     // a lazy hand-sewn wiggle from the nav down to the footer
     const start = 110;
     const end = h - 60;
-    const step = 140;
+    // even segments: a short leftover one would kink into a little hook at the bottom
+    const count = Math.max(1, Math.round((end - start) / 140));
+    const step = (end - start) / count;
     let d = `M ${w / 2} ${start}`;
-    for (let y = start, i = 0; y < end; y += step, i++) {
+    for (let i = 0; i < count; i++) {
+      const y = start + i * step;
       const x = w / 2 + (i % 2 ? 18 : -18) + Math.sin(i * 1.3) * 6;
-      d += ` Q ${x} ${y + step / 2} ${w / 2} ${Math.min(y + step, end)}`;
+      d += ` Q ${x} ${y + step / 2} ${w / 2} ${y + step}`;
     }
     line.setAttribute('d', d);
     mask.setAttribute('d', d);

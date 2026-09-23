@@ -10,17 +10,24 @@
     "room": "224",
     "announcedOn": "BDTV"
   },
-  "suppliesNote": "We provide the tools (scissors, paper, markers, tape, glue sticks, stickers and more).",
+  "suppliesNote": "We’ll provide all the supplies like paper, glue, tape, and markers.",
   "advisor": {
     "name": "Timothy Stumbers",
     "email": "",
     "image": ""
   },
-  "contact": {
-    "name": "Norah",
-    "role": "Co-President",
-    "email": "norahmendel123@gmail.com"
-  },
+  "contacts": [
+    {
+      "name": "Norah",
+      "role": "Co-President",
+      "email": "norahmendel123@gmail.com"
+    },
+    {
+      "name": "Corabelle",
+      "role": "Co-President",
+      "email": "Corabellemartin@gmail.com"
+    }
+  ],
   "established": "April 2026",
   "heroPhotos": [
     {
@@ -39,79 +46,79 @@
   "gallery": [
     {
       "image": "kailani-scrapbook.jpg",
-      "caption": "Kailani's scrapbook"
+      "caption": "kailani's scrapbook"
     },
     {
       "image": "patagonia.jpg",
-      "caption": "Patagonia"
+      "caption": "patagonia trip"
     },
     {
       "image": "making-waves.jpg",
-      "caption": "Making waves"
+      "caption": "making waves"
     },
     {
       "image": "cottage-spread.jpg",
-      "caption": "Summer daydreams"
+      "caption": "verdant morning"
     },
     {
       "image": "penn-visit.jpg",
-      "caption": "Penn visit"
+      "caption": "penn visit"
     },
     {
       "image": "june-summer.jpg",
-      "caption": "June Vision Board"
+      "caption": "june vision board"
     }
   ],
   "team": [
     {
       "featured": true,
-      "name": "Norah",
+      "name": "Norah Mendel",
       "role": "Co-President",
       "grade": "11th grade",
-      "image": "norah.jpg",
+      "image": "norah-5.jpg",
       "bio": "Hi! My name is Norah, and I’m a junior at WHS. Whether I'm filming a video, painting with acrylics, or dancing Bollywood style, I love all things creative! In my free time, I enjoy going to the city, hanging out at a local coffee shop, or baking banana bread. I’m so excited to see what this club brings this year!"
     },
     {
       "featured": true,
-      "name": "Corabelle",
+      "name": "Corabelle Martin",
       "role": "Co-President",
       "grade": "11th grade",
-      "image": "corabelle.jpg",
+      "image": "corabelle-3.jpg",
       "bio": "Hi, I’m Corabelle! I’m a junior at WHS and I’ve been scrapbooking since I was eleven. It has been a consistent hobby of mine and it’s my favorite way to document my life. Other ways I like to spend my time include dancing, singing, and playing the piano. I also love to read, and my favorite book is the “Jasad Heir” by Sara Hashem!"
     },
     {
-      "name": "Kailani",
+      "name": "Kailani Patel",
       "role": "Secretary",
       "grade": "11th grade",
-      "image": "kailani.jpg",
+      "image": "kailani-2.jpg",
       "bio": "I’m Kailani, a junior at WHS and have been scrapbooking for almost three years! I feel like it is something super creative and calming to do, and one of my favorite hobbies. Some of my favorite hobbies include creating playlists, baking, reading, scrapbooking, journaling, and taking pictures!"
     },
     {
-      "name": "Khadeeja",
+      "name": "Khadeeja Khan",
       "role": "Treasurer",
       "grade": "11th grade",
-      "image": "khadeeja.jpg",
+      "image": "khadeeja-4.jpg",
       "bio": "Hi! My name is Khadeeja, and I am currently in 11th grade. In my free time, I enjoy painting and practicing yoga. I also love eating pasta and spending time with my family. I would describe myself as a kind and calm person. I am excited to be part of this club and look forward to making new memories with everyone!"
     },
     {
-      "name": "Natalie",
+      "name": "Natalie Diamond",
       "role": "Treasurer",
       "grade": "11th grade",
-      "image": "natalie.jpg",
+      "image": "natalie-3.jpg",
       "bio": "Hi! I’m Natalie, a junior at WHS this year. When I’m not at school I love to dance - mostly ballet, which is my favorite. I’m also a part of the WHS band, where I play the flute. I love going to the beach (specifically Cape May) and in my free time, I enjoy reading, crafting, and spending time with friends and family!"
     },
     {
-      "name": "Norah",
+      "name": "Norah Cabral",
       "role": "Activity Facilitator",
       "grade": "11th grade",
-      "image": "norah-af.jpg",
+      "image": "norah-af-4.jpg",
       "bio": "Hi, my name is Norah. I love to dance - I do all different styles, but ballet is my favorite. I also assist teach dance classes on the weekends. When I’m not dancing, I like to take barre classes or run. I play the violin in the WHS chamber orchestra. I like to draw, paint, or do any kind of art or craft when I have free time!"
     },
     {
-      "name": "Julia",
+      "name": "Julia DeFilippis",
       "role": "Outreach Coordinator",
       "grade": "11th grade",
-      "image": "julia.jpg",
+      "image": "julia-4.jpg",
       "bio": "Hi!!! My name is Julia DeFilippis, I’m a junior, and I am so excited to be the outreach coordinator for the Scrapbooking Club! I love scrapbooking because I think it is such a fun way to keep memories. I love taking pictures, so I love being a part of this club. Some of my favorite hobbies include singing, shopping and hanging out with my friends. I’m so excited for the great year ahead!"
     }
   ]

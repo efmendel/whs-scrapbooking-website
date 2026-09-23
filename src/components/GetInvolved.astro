@@ -5,18 +5,18 @@ import TornLabel from './TornLabel.astro';
 const { meetings, classroom } = club;
 const steps = [
   {
-    title: 'Join our Google Classroom',
+    title: 'join our Google Classroom',
     body: 'Enter the class code to get announcements and meeting reminders.',
     color: 'var(--blush)',
   },
   {
-    title: 'Come to a meeting',
+    title: 'come to a meeting',
     body: `We meet in Room ${meetings.room}. Meeting days change, so listen for us on ${meetings.announcedOn} during morning announcements.`,
     color: 'var(--butter)',
   },
   {
-    title: 'Bring your memories',
-    body: `Photos, ticket stubs, notes: anything you want to keep. ${club.suppliesNote}`,
+    title: 'start crafting',
+    body: `Bring photos, printed pictures, or keepsakes to add to your project. ${club.suppliesNote}`,
     color: 'var(--apricot)',
   },
 ];
@@ -24,7 +24,7 @@ const steps = [
 <section id="join" class="join wrap">
   <div class="join__steps">
     <TornLabel color="pink" tilt={-2}>get involved</TornLabel>
-    <h2 class="section-title" data-rise>Joining takes three steps</h2>
+    <h2 class="section-title" data-rise>joining takes three steps</h2>
 
     <ol class="steps" role="list">
       {steps.map((s, i) => (
@@ -50,7 +50,7 @@ const steps = [
         <path d="M12 30 V78 a10 10 0 0 0 20 0 V14 a12 12 0 0 0 -24 0 V70 a6 6 0 0 0 12 0 V26" fill="none" stroke="var(--rose)" stroke-width="3.5" stroke-linecap="round" />
       </svg>
       <span class="lbl code-card__kicker">Google Classroom</span>
-      <h3 class="display code-card__title">Our class code</h3>
+      <h3 class="display code-card__title">our class code</h3>
 
       <div class="code-card__code-row">
         <div class="code-card__code" data-stamp>
@@ -67,7 +67,9 @@ const steps = [
         <span>Open Google Classroom</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" /></svg>
       </a>
-      <p class="hand code-card__help">code not working? <a href={`mailto:${club.contact.email}`}>email {club.contact.name}!</a></p>
+      <p class="hand code-card__help">code not working? email{' '}
+        <a href={`mailto:${club.contacts[0].email}`}>{club.contacts[0].name}</a>{' or '}
+        <a href={`mailto:${club.contacts[1].email}`}>{club.contacts[1].name}</a>!</p>
     </div>
 
     <div class="ticket join__ticket" data-ticket>
